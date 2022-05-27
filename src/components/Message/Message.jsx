@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const Message = ({ text }) => {
-  return <div>{text}</div>;
+  return <div style={{ width: '350px', textAlign: 'center' }}>{text}</div>;
 };
 
 Message.propTypes = {

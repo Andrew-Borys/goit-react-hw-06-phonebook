@@ -1,25 +1,18 @@
 import Title from '../Title';
 import ContactForm from '../ContactForm';
 import ContactList from '../ContactList';
-import Message from '../Message';
 import Filter from 'components/Filter';
-import { useSelector } from 'react-redux';
-import { getItems, getFilterContacts } from 'redux/ContactSlice';
 import { Wrapper, Section } from './App.styled';
+import { useSelector } from 'react-redux';
+import { getFilterContacts } from 'redux/ContactSlice';
+import { useFilterContacts } from 'hooks/useFilterContacts';
+// import { useFilterContacts } from '../../hooks/useFilterContacts';
+import Message from '../Message';
 
 export function App() {
-  const contacts = useSelector(getItems);
-  const filter = useSelector(getFilterContacts);
+  const filter = useFilterContacts();
+  const queryName = useSelector(getFilterContacts);
 
-  const getFilteredContact = () => {
-    const normalizedFilter = filter.toLowerCase().trim();
-    return contacts.filter(contact =>
-      contact.name.toLowerCase().trim().includes(normalizedFilter)
-    );
-  };
-
-  const filteredContacts = getFilteredContact();
-  console.log(filteredContacts);
   return (
     <Wrapper>
       <Section>
@@ -29,10 +22,12 @@ export function App() {
       <Section>
         <Title text={'Contacts'} />
         <Filter />
-        {filteredContacts.length === 0 ? (
-          <Message text={'Oooops, the contact list is empty ¯_(ツ) _/¯'} />
+        {filter.length === 0 ? (
+          <Message
+            text={`Oooops, the contact list is empty ¯_(ツ) _/¯ or contact: "${queryName}" not found...`}
+          />
         ) : (
-          <ContactList contacts={filteredContacts} />
+          <ContactList />
         )}
       </Section>
     </Wrapper>

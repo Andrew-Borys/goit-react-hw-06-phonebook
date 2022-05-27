@@ -1,8 +1,10 @@
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import ContactItem from '../ContactItem';
 import { List } from './ContactList.styled';
+import { useFilterContacts } from 'hooks/useFilterContacts';
 
-const ContactList = ({ contacts }) => {
+const ContactList = () => {
+  const contacts = useFilterContacts();
   return (
     <>
       <List>
@@ -12,10 +14,6 @@ const ContactList = ({ contacts }) => {
       </List>
     </>
   );
-};
-
-ContactList.propTypes = {
-  contacts: PropTypes.arrayOf(PropTypes.object),
 };
 
 export default ContactList;
